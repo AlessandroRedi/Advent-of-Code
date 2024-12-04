@@ -1,35 +1,53 @@
 import re
 
 
-def mul_eval(line: str) -> int:
-    regex = r"mul\(\d{1,3},\d{1,3}\)"
-    results = re.findall(regex, line)
-    reg2 = r"\d{1,3}"
-    numbers = [
-        int(nums[0]) * int(nums[1]) for i in results for nums in [re.findall(reg2, i)]
-    ]
-    mul = sum(numbers)
-    return mul
+def count_xmas(line: str) -> int:
+    regex1 = r"XMAS"
+    regex2 = r"SAMX"
+    tot = 0
+    for row in line:
+        tot += len(re.findall(regex1, row))
+        tot += len(re.findall(regex2, row))
 
-
-def cleaning(char: str) -> str:
-    regex1 = "do\(\)"
-    regex2 = "don't\(\)"
-    while re.search(regex2, char) and re.search(regex1, char):
-        point1 = re.search(regex2, char)
-        point2 = re.search(regex1, char)
-        if point2.end() < point1.start():
-            char = char[: point2.start()] + char[point2.end() :]
-        else:
-            char = char[: point1.start()] + char[point2.end() :]
-    return char
+    return tot
 
 
 if __name__ == "__main__":
-    mul_tot = 0
-    with open("./3/data.txt", "r") as file:
-        chars = file.read()
-        chars = cleaning(chars)
-        mul_tot = mul_eval(chars.strip())
+    chars = []
+    tot = 0
+    with open("./4/data.txt", "r") as file:
+        for line in file:
+            chars.append(line.strip())
 
-    print(mul_tot)
+    rows = len(chars)
+    cols = len(chars[0])
+    vertical_lines = [
+        "".join(chars[row][col] for row in range(rows)) for col in range(cols)
+    ]
+
+    top_left_to_bot_right = []
+    bot_left_to_top_right = []
+
+    for d in range(rows + cols - 1):
+        top_left_to_bot_right.append(
+            "".join(
+                chars[i][d - i]
+                for i in range(max(d - cols + 1, 0), min(d + 1, rows))
+                if 0 <= d - i < cols
+            )
+        )
+
+    for d in range(rows + cols - 1):
+        bot_left_to_top_right.append(
+            "".join(
+                chars[rows - 1 - i][d - i]
+                for i in range(max(d - cols + 1, 0), min(d + 1, rows))
+                if 0 <= d - i < cols
+            )
+        )
+
+    tot += count_xmas(chars)
+    tot += count_xmas(vertical_lines)
+    tot += count_xmas(top_left_to_bot_right)
+    tot += count_xmas(bot_left_to_top_right)
+    print(tot)
