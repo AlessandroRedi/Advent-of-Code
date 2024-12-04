@@ -1,7 +1,7 @@
 import re
 
 
-def count_xmas(line: str) -> int:
+def count_xmas(line: list[str]) -> int:
     regex1 = r"XMAS"
     regex2 = r"SAMX"
     tot = 0
