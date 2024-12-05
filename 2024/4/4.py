@@ -15,7 +15,7 @@ def count_xmas(line: list[str]) -> int:
 if __name__ == "__main__":
     chars = []
     tot = 0
-    with open("./4/data.txt", "r") as file:
+    with open("./2024/4/data.txt", "r") as file:
         for line in file:
             chars.append(line.strip())
 

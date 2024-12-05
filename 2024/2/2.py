@@ -37,7 +37,7 @@ def safe_check_dampener(code_list: list[int]) -> int:
 if __name__ == "__main__":
     code_list = []
     safe_n = 0
-    with open("./2/data.txt", "r") as file:
+    with open("./2024/2/data.txt", "r") as file:
         for line in file:
             input = line.strip()
             code_list = [int(x) for x in input.split()]

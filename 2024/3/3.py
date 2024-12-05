@@ -27,7 +27,7 @@ def cleaning(char: str) -> str:
 
 if __name__ == "__main__":
     mul_tot = 0
-    with open("./3/data.txt", "r") as file:
+    with open("./2024/3/data.txt", "r") as file:
         chars = file.read()
         chars = cleaning(chars)
         mul_tot = mul_eval(chars.strip())

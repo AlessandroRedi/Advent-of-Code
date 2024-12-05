@@ -1,7 +1,7 @@
 if __name__ == "__main__":
     list1 = []
     list2 = []
-    with open("./1/data.txt", "r") as file:
+    with open("./2024/1/data.txt", "r") as file:
         for line in file:
             input1 = line.strip()
             num1, num2 = input1.split()
